@@ -21,7 +21,7 @@ def evaluateTaskAccuracy(model,featureExtractor,taskLoader,taskNum):
             total+=labels.size(0)
     return correct/total if total>0 else 0
 
-def trainIncrementalClassTasks(featureExtractor,wpModel,trainDataset,classGroups,epochs=5):
+def trainIncrementalClassTasks(featureExtractor,wpModel,trainDataset,classGroups,epochs=10):
     criterion=nn.CrossEntropyLoss()
     optimizer=optim.Adam(list(wpModel.parameters()),lr=0.001)
     buffer=ReplayBuffer(size=1000)
@@ -82,7 +82,7 @@ trainDataset=datasets.CIFAR10(root='./data',train=True,download=True,transform=t
 testDataset=datasets.CIFAR10(root='./data',train=False,download=True,transform=transform)
 classGroups=[[0,1],[2,3],[4,5],[6,7],[8,9]]
 wpModel=MultiTaskCNN()
-featureExtractor=torch.load('feature_extractor.pth')
+featureExtractor=model.load_state_dict(torch.load("feature_extractor.pth"))
 trainIncrementalClassTasks(featureExtractor,wpModel,trainDataset,classGroups)
 torch.save(wpModel.state_dict(),"wpModel.pth")
 
