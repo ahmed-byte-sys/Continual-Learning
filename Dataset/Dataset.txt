@@ -1,0 +1,4 @@
+#Used CIFAR10 DATASET
+
+CODE : trainDataset=datasets.CIFAR10(root='./data',train=True,download=True)
+    testDataset=datasets.CIFAR10(root='./data',train=False,download=True)
