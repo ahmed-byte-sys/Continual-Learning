@@ -39,6 +39,6 @@ def testModel(featureExtractor,wpModel,testDataset,classGroups):
 transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5,),(0.5,))])
 testDataset=datasets.CIFAR10(root='./data',train=False,download=True,transform=transform)
 classGroups=[[0,1],[2,3],[4,5],[6,7],[8,9]]
-featureExtractor = torch.load("featureExtractor.pth")
-wpModel = torch.load("wpModel.pth")
+featureExtractor = model.load_state_dict(torch.load("featureExtractor.pth"))
+wpModel = model.load_state_dict(torch.load("wpModel"))
 testModel(featureExtractor,wpModel,testDataset,classGroups)
